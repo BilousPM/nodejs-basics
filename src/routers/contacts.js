@@ -4,6 +4,7 @@ import {
   deleteContactByIdController,
   getAllContactsController,
   getContactByIdController,
+  putchContactController,
   upsertContactController,
 } from '../controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
@@ -30,6 +31,8 @@ contactsRouters.post(
 // -----------------------------
 contactsRouters.put('/:contactId', ctrlWrapper(upsertContactController));
 // -------------------
+
+contactsRouters.patch('/:contactId', ctrlWrapper(putchContactController));
 
 contactsRouters.delete('/:contactId', ctrlWrapper(deleteContactByIdController));
 

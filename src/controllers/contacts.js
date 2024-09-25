@@ -1,8 +1,9 @@
 import {
   createContact,
-  deleteContact,
+  deleteContactById,
   getAllContacts,
   getContactsById,
+  renewalContact,
   updateContact,
 } from '../servises/contacts.js';
 import createHttpError from 'http-errors';
@@ -44,8 +45,8 @@ export const createNewContactController = async (req, res) => {
 
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
-
-  const reNewContact = await updateContact(contactId, req.body, {
+  const { body } = req;
+  const reNewContact = await updateContact(contactId, body, {
     upsert: true,
   });
 
@@ -65,9 +66,22 @@ export const upsertContactController = async (req, res, next) => {
 
 // -----------------------
 
+export const putchContactController = async (req, res) => {
+  const { contactId } = req.params;
+  const { body } = req;
+
+  const contact = await renewalContact(contactId, body);
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully updated a contact',
+    data: contact,
+  });
+};
+
 export const deleteContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await deleteContact(contactId);
+  const contact = await deleteContactById(contactId);
 
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));

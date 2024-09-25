@@ -35,7 +35,20 @@ export const updateContact = async (contactId, payload, options = {}) => {
   };
 };
 // ---------------------------
-export const deleteContact = async (contactId) => {
+
+export const renewalContact = async (contactId, paylad) => {
+  const contact = await contactsModel.findByIdAndUpdate(contactId, paylad, {
+    new: true,
+  });
+
+  if (!contact) {
+    return null;
+  }
+
+  return contact;
+};
+
+export const deleteContactById = async (contactId) => {
   const contact = await contactsModel.findOneAndDelete({
     _id: contactId,
   });
