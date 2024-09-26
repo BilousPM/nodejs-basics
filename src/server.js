@@ -30,7 +30,6 @@ export const initialServer = () => {
   });
 
   app.use('/contacts', contactsRouter);
-
   app.use('*', notFoundMiddleware);
   app.use('*', errorHandlerMiddelware);
 
